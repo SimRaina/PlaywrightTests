@@ -25,8 +25,9 @@ public class InputFieldsTest {
 
     @BeforeEach
     void setup() {
-            openPage();
-        }
+        openPage();
+        page.navigate("https://practicesoftwaretesting.com");
+    }
 
     @AfterEach
     void tearDown() {

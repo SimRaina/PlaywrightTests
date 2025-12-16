@@ -20,6 +20,7 @@ public class LocateTextLabelPlaceholderTest {
         @BeforeEach
         void setup() {
             openPage();
+            page.navigate("https://practicesoftwaretesting.com");
         }
 
         @AfterEach
