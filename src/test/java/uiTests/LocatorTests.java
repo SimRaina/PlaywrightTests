@@ -48,14 +48,10 @@ public class LocatorTests {
 
         assertThat(outOfStockItem).hasCount(1);
         assertThat(outOfStockItem).hasText("Long Nose Pliers");
-
-
-
     }
 
     void openPage() {
-        playwright =
-                Playwright.create();
+        playwright = Playwright.create();
         browser = playwright.chromium().launch(
                 new BrowserType.LaunchOptions()
                         .setHeadless(false)
