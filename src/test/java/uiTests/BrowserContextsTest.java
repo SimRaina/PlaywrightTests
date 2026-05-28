@@ -45,9 +45,7 @@ public class BrowserContextsTest {
         page.navigate("https://practicesoftwaretesting.com");
         page.locator("[placeholder=Search]").fill("Pliers"); // css selector
         page.locator("button:has-text('Search')").click(); // css selector
-
         int matchingSearchResults = page.locator(".card").count();
-
         assertTrue(matchingSearchResults > 0);
     }
 }
