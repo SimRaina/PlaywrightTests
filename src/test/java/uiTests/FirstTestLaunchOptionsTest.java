@@ -40,7 +40,6 @@ public class FirstTestLaunchOptionsTest {
     void shouldShowPageTitle() {
         page.navigate("https://practicesoftwaretesting.com");
         String title = page.title();
-
         assertTrue(title.contains("Practice Software Testing"));
     }
 
