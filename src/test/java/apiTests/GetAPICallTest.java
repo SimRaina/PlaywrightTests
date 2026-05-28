@@ -10,7 +10,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
-public class GetAPICall {
+public class GetAPICallTest {
 
     Playwright playwright;
     APIRequest request;
