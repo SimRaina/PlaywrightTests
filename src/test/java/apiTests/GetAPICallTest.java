@@ -21,6 +21,15 @@ public class GetAPICallTest {
         playwright = Playwright.create();
         request = playwright.request();
         requestContext = request.newContext();
+
+        // playwright = Playwright.create();
+        // requestContext = playwright.request().newContext(
+        //                  new APIRequest.NewContextOptions()
+        //                  .setBaseURL("url")
+        //                  .setExtraHTTPHeaders(new HashMap<>() {{
+        //                   put("Accept", "application/json");
+        //                   }})
+        //               );
     }
 
     @Test
