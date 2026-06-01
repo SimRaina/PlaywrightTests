@@ -83,7 +83,7 @@ public class GetAPICallTest {
     }
 
     /* @Test
-    public void getUsers(){
+    public void checkKnownProducts(){
         
     }
 
