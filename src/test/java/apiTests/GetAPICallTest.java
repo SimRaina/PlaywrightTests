@@ -80,7 +80,26 @@ public class GetAPICallTest {
         requestContext.dispose();
         // System.out.println(apiResponse.text()); // Exception
         System.out.println(apiResponse1.text()); // Exception
-
-
     }
+
+    /* @Test
+    public void getUsers(){
+        
+    }
+
+    static Stream<Product> products() {
+       APIResponse response = requestContext.get("/products?page=2");
+       Assertions.assertThat(response.status().isEqualTo(200);
+       JsonObject jsonObject = new Gson().fromJson(response.text(), JsonObject.class);
+       JsonArray data = jsonObject.getAsJsonArray("data");
+
+       return data.asList().stream()
+                            .map(jsonElement -> {
+                              JsonObject productJson = jsonElement.getAsJsonObject();
+                              return new Product(
+                                 productJson.get("name").getAsString(),
+                                 productJson.get("price).getAsDouble()
+                              };
+        });      
+    }    */
 }
