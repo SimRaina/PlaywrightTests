@@ -82,11 +82,7 @@ public class GetAPICallTest {
         System.out.println(apiResponse1.text()); // Exception
     }
 
-    /* @Test
-    public void checkKnownProducts(){
-        
-    }
-
+    /*
     static Stream<Product> products() {
        APIResponse response = requestContext.get("/products?page=2");
        Assertions.assertThat(response.status().isEqualTo(200);
