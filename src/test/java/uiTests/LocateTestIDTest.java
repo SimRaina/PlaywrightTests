@@ -43,5 +43,6 @@ public class LocateTestIDTest {
                 new BrowserType.LaunchOptions()
                         .setHeadless(false)
         );
+        page = browser.newPage();
     }
 }

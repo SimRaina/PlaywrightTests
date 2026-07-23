@@ -62,5 +62,6 @@ public class LocateNestedElementsTest {
                 new BrowserType.LaunchOptions()
                         .setHeadless(false)
         );
+        page = browser.newPage();
     }
 }

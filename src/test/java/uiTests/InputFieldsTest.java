@@ -74,5 +74,6 @@ public class InputFieldsTest {
                 new BrowserType.LaunchOptions()
                         .setHeadless(false)
         );
+        page = browser.newPage();
     }
 }

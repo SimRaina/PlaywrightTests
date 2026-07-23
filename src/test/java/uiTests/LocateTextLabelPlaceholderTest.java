@@ -86,5 +86,6 @@ public class LocateTextLabelPlaceholderTest {
                 new BrowserType.LaunchOptions()
                         .setHeadless(false)
         );
+        page = browser.newPage();
     }
 }

@@ -54,11 +54,11 @@ public class AssertJTests {
     }
 
     void openPage() {
-        playwright =
-                Playwright.create();
+        playwright = Playwright.create();
         browser = playwright.chromium().launch(
                 new BrowserType.LaunchOptions()
                         .setHeadless(false)
         );
+        page = browser.newPage();
     }
 }

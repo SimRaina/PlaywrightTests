@@ -55,5 +55,6 @@ public class LocatorTests {
                 new BrowserType.LaunchOptions()
                         .setHeadless(false)
         );
+        page = browser.newPage();
     }
 }

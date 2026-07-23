@@ -61,5 +61,6 @@ public class LocateRoleTest {
                 new BrowserType.LaunchOptions()
                         .setHeadless(false)
         );
+        page = browser.newPage();
     }
 }
