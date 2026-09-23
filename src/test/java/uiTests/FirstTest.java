@@ -17,7 +17,7 @@ public class FirstTest {
     @BeforeMethod
     void setup() {
         playwright = Playwright.create();
-        browser = playwright.chromium().launch();
+        browser = playwright.chromium().launch(); // headless true
         page = browser.newPage();
     }
 

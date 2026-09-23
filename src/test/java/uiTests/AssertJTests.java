@@ -48,11 +48,6 @@ public class AssertJTests {
                                 .isLessThan(1000.0));
     }
 
-    @Test
-    void shouldSortInAlphabeticalOrder() {
-
-    }
-
     void openPage() {
         playwright = Playwright.create();
         browser = playwright.chromium().launch(

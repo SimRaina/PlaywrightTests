@@ -1,4 +1,4 @@
-package uiTests;
+package apiTests;
 
 import com.microsoft.playwright.*;
 import org.junit.jupiter.api.AfterEach;
