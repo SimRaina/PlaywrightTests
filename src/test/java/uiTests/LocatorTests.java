@@ -4,32 +4,18 @@ import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.AriaRole;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
+import uiTests.BaseClass.BaseClass;
 
 import java.util.List;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class LocatorTests {
-
-    private Playwright playwright;
-    private Browser browser;
-    private Page page;
-
-    @BeforeEach
-    void setup() {
-        openPage();
-        page.navigate("https://practicesoftwaretesting.com");
-    }
-
-    @AfterEach
-    void tearDown() {
-        browser.close();
-        playwright.close();
-    }
+public class LocatorTests extends BaseClass {
 
     @Test
     @DisplayName("Locating an element by CSS")
     void locateByCss() {
+        navigateTo("/");
         page.locator("input[placeholder='Search']").fill("Pliers");
         page.locator("button[type='submit']").click();
 
@@ -42,6 +28,7 @@ public class LocatorTests {
     @Test
     @DisplayName("Locating an element by role")
     void locateByRole() {
+        navigateTo("/");
         page.getByRole(AriaRole.BUTTON,
                 new Page.GetByRoleOptions().setName("Search")).click();
 
@@ -55,6 +42,7 @@ public class LocatorTests {
     @Test
     @DisplayName("Locating an element by Test ID")
     void locateByTestId() {
+        navigateTo("/");
         page.getByTestId("search-query").fill("Pliers");
         assertThat(page.getByTestId("search-query")).hasValue("Pliers");
     }
@@ -62,6 +50,7 @@ public class LocatorTests {
     @Test
     @DisplayName("Locating an element by text")
     void locateByText() {
+        navigateTo("/");
         page.getByText("Combination Pliers").click();
         assertThat(page.getByText("ForgeFlex Tools")).isVisible();
     }
@@ -69,6 +58,7 @@ public class LocatorTests {
     @Test
     @DisplayName("Locating by alt text and title")
     void locateByAltTextAndTitle() {
+        navigateTo("/");
         page.getByAltText("Combination Pliers").click();
         page.getByTitle("Practice Software Testing - ToolShop").click();
     }
@@ -76,6 +66,7 @@ public class LocatorTests {
     @Test
     @DisplayName("Locating an element by label and placeholder")
     void locateByLabelAndPlaceholder() {
+        navigateTo("/");
         page.getByPlaceholder("Search").fill("Pliers");
         assertThat(page.getByPlaceholder("Search")).hasValue("Pliers");
 
@@ -86,6 +77,7 @@ public class LocatorTests {
     @Test
     @DisplayName("Locating nested elements")
     void locateNestedElements() {
+        navigateTo("/");
         page.getByRole(AriaRole.MENUBAR,
                         new Page.GetByRoleOptions().setName("Main Menu"))
                 .getByRole(AriaRole.MENUITEM,
@@ -100,6 +92,7 @@ public class LocatorTests {
     @Test
     @DisplayName("Filtering elements")
     void filterElements() {
+        navigateTo("/");
         List<String> allProductsWithSander = page.getByTestId("product-name")
                 .filter(new Locator.FilterOptions().setHasText("Sander"))
                 .allTextContents();
@@ -121,7 +114,7 @@ public class LocatorTests {
 
     @Test
     void searchForPliers() {
-        page.navigate("https://practicesoftwaretesting.com");
+        navigateTo("/");
         page.getByPlaceholder("Search").fill("Pliers");
         page.getByRole(AriaRole.BUTTON,
                 new Page.GetByRoleOptions().setName("Search")).click();
@@ -139,12 +132,4 @@ public class LocatorTests {
         assertThat(outOfStockItem).hasText("Long Nose Pliers");
     }
 
-    void openPage() {
-        playwright = Playwright.create();
-        browser = playwright.chromium().launch(
-                new BrowserType.LaunchOptions()
-                        .setHeadless(false)
-        );
-        page = browser.newPage();
-    }
 }

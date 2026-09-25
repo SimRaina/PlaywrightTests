@@ -1,50 +1,56 @@
 package uiTests;
 
-import com.microsoft.playwright.*;
+import com.microsoft.playwright.BrowserContext;
 import org.testng.annotations.*;
+import uiTests.BaseClass.BaseClass;
 
 import static org.testng.Assert.assertTrue;
 
-public class BrowserContextsTest {
+public class BrowserContextsTest extends BaseClass {
 
-    private static Playwright playwright;
-    private static Browser browser;
-    private static BrowserContext browserContext;
-    Page page;
+    private BrowserContext browserContext;
 
-    @BeforeTest
-    public static void setupBrowser() {
-        playwright = Playwright.create();
+    @Override
+    @BeforeMethod(alwaysRun = true)
+    public void setUp() {
+        playwright = com.microsoft.playwright.Playwright.create();
         browser = playwright.chromium().launch(
-                new BrowserType.LaunchOptions()
+                new com.microsoft.playwright.BrowserType.LaunchOptions()
                         .setHeadless(false)
         );
-        browserContext = browser.newContext(); // common browser context for two tests
+        browserContext = browser.newContext();
+        page = browserContext.newPage();
     }
 
-    @BeforeMethod
-    public void setUp() {
-        page = browserContext.newPage(); // opens tabs for each test
-    }
-
-    @AfterTest
-    public static void tearDown() {
-        browser.close();
-        playwright.close();
+    @Override
+    @AfterMethod(alwaysRun = true)
+    public void tearDown() {
+        if (page != null) {
+            page.close();
+        }
+        if (browserContext != null) {
+            browserContext.close();
+        }
+        if (browser != null) {
+            browser.close();
+        }
+        if (playwright != null) {
+            playwright.close();
+        }
     }
 
     @Test
     void shouldShowPageTitle() {
-        page.navigate("https://practicesoftwaretesting.com");
+        navigateTo("/");
         String title = page.title();
         assertTrue(title.contains("Practice Software Testing"));
     }
 
     @Test
     void shouldSearchByKeyword() {
-        page.navigate("https://practicesoftwaretesting.com");
-        page.locator("[placeholder=Search]").fill("Pliers"); // css selector
-        page.locator("button:has-text('Search')").click(); // css selector
+        navigateTo("/");
+        page.locator("[placeholder=Search]").fill("Pliers");
+        page.locator("button:has-text('Search')").click();
         int matchingSearchResults = page.locator(".card").count();
         assertTrue(matchingSearchResults > 0);
     }

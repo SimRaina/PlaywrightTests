@@ -1,48 +1,31 @@
 package uiTests;
 
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.WaitForSelectorState;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import uiTests.BaseClass.BaseClass;
+
 import java.util.Comparator;
 import java.util.List;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-public class WaitsTest {
-
-    Playwright playwright;
-    Browser browser;
-    Page page;
-
-    @BeforeEach
-    void setup() {
-        openPage();
-        page.navigate("https://practicesoftwaretesting.com");
-        // page.waitForSelector("[data-test=product-name]");
-        page.waitForSelector(".card-img-top"); // explicit wait for looking up an element
-    }
-
-    @AfterEach
-    void tearDown() {
-        browser.close();
-        playwright.close();
-    }
+public class WaitsTest extends BaseClass {
 
     @Test
     void validateProductNames() {
+        navigateTo("/");
+        page.waitForSelector(".card-img-top");
         List<String> productNames = page.getByTestId("product-name").allInnerTexts();
         Assertions.assertThat(productNames).contains("Pliers", "Bolt Cutters");
     }
 
     @Test
     void validateProductImages() {
+        navigateTo("/");
+        page.waitForSelector(".card-img-top");
         List<String> productImageTitles = page.locator(".card-img-top").all()
                 .stream()
                 .map(img -> img.getAttribute("alt"))
@@ -52,6 +35,7 @@ public class WaitsTest {
 
     @Test
     void validateFilterCheckboxes() {  // automatic/implicit waits for clicking/input values
+        navigateTo("/");
         var screwdriverFilter = page.getByLabel("Screwdriver");
         screwdriverFilter.click();
         assertThat(screwdriverFilter).isChecked();
@@ -59,6 +43,7 @@ public class WaitsTest {
 
     @Test
     void validateFilterProductsByCategory() {
+        navigateTo("/");
         page.getByRole(AriaRole.MENUBAR).getByText("Categories").click();
         page.getByRole(AriaRole.MENUBAR).getByText("Power Tools").click();
 
@@ -73,6 +58,7 @@ public class WaitsTest {
 
     @Test
     void validateToastMessage() {
+        navigateTo("/");
         page.getByText("Bolt Cutters").click();
         page.getByText("Add to cart").click();
 
@@ -85,6 +71,7 @@ public class WaitsTest {
 
     @Test
     void validateUpdateCartItemCount() {
+        navigateTo("/");
         page.getByText("Bolt Cutters").click();
         page.getByText("Add to cart").click();
 
@@ -95,6 +82,7 @@ public class WaitsTest {
 
     @Test
     void validateSortByDescPrice() {       // wait for API response
+        navigateTo("/");
         page.waitForResponse("**/products?sort**",
                 () -> {
                     page.getByTestId("sort").selectOption("Price (High - Low)");
@@ -118,12 +106,4 @@ public class WaitsTest {
         return Double.parseDouble(price.replace("$", ""));
     }
 
-    void openPage() {
-        playwright = Playwright.create();
-        browser = playwright.chromium().launch(
-                new BrowserType.LaunchOptions()
-                        .setHeadless(false)
-        );
-        page = browser.newPage();
-    }
 }
